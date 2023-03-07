@@ -1,4 +1,4 @@
-import { isValidToken } from './utils/verifyToken';
+import { isValidToken } from "./utils/verifyToken";
 
 /**
  * It takes a socket, a data object, and a callback. It then checks if the data object has a token
@@ -11,10 +11,11 @@ import { isValidToken } from './utils/verifyToken';
  */
 export const authenticateSocket = async (socket, data, callback) => {
   const { token } = data;
+  console.log(data);
   if (!token) {
     // Emit error
     console.log(`Socket ${socket.id} unauthorized.`);
-    return callback({ message: 'INVALID TOKEN' });
+    return callback({ message: "INVALID TOKEN" });
   }
 
   try {
@@ -22,7 +23,7 @@ export const authenticateSocket = async (socket, data, callback) => {
 
     if (!tokenValidationResult.isValid) {
       console.log(`Socket ${socket.id} unauthorized.`);
-      return callback({ message: 'UNAUTHORIZED' });
+      return callback({ message: "UNAUTHORIZED" });
     }
 
     socket.user_data = (await tokenValidationResult.dataPromise).data[0];
@@ -30,6 +31,6 @@ export const authenticateSocket = async (socket, data, callback) => {
     return callback(null, true);
   } catch (err) {
     console.log(`Socket ${socket.id} unauthorized.`);
-    return callback({ message: 'UNAUTHORIZED' });
+    return callback({ message: "UNAUTHORIZED" });
   }
 };
