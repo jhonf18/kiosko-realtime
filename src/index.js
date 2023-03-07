@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import socketioAuth from "socketio-auth";
 import { authenticateSocket } from "./authentication";
+import { VARS } from "./config/vars";
 import { kitchenRoom } from "./rooms/kitchen";
 import { managmentRoom } from "./rooms/managmentOrders";
 import { ordersRoom } from "./rooms/orders";
@@ -35,6 +36,6 @@ socketioAuth(io, {
   },
 });
 
-httpServer.listen(3002, () => {
-  console.log("App running on port 3002");
+httpServer.listen(VARS.PORT, () => {
+  console.log("App running on port " + VARS.PORT);
 });
