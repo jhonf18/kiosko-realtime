@@ -22,6 +22,7 @@ export const authenticateSocket = async (socket, data, callback) => {
     const tokenValidationResult = await isValidToken(token);
 
     if (!tokenValidationResult.isValid) {
+      console.log("Error to validated");
       console.log(`Socket ${socket.id} unauthorized.`);
       return callback({ message: "UNAUTHORIZED" });
     }
@@ -30,6 +31,7 @@ export const authenticateSocket = async (socket, data, callback) => {
 
     return callback(null, true);
   } catch (err) {
+    console.log("There a error: ", err);
     console.log(`Socket ${socket.id} unauthorized.`);
     return callback({ message: "UNAUTHORIZED" });
   }
