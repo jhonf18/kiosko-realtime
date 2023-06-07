@@ -8,14 +8,14 @@ import { ROOMS } from '../config/rooms';
 export const kitchenRoom = ({ io, socket }) => {
   socket.join(ROOMS.KITCHEN);
 
-  socket.on('kitchen:accept-order', order => {
+  socket.on('kitchen:accept-order', ({ order, ticket }) => {
     // Update state of order
-    io.to(ROOMS.MANAGMENT_ORDERS).emit('kitchen:accepted-order', order);
-    io.to(ROOMS.ORDERS).emit('kitchen:accepted-order', order);
+    io.to(ROOMS.MANAGMENT_ORDERS).emit('kitchen:accepted-order', { order, ticket });
+    io.to(ROOMS.ORDERS).emit('kitchen:accepted-order', { order, ticket });
   });
 
-  socket.on('kitchen:finish-order', order => {
-    io.to(ROOMS.MANAGMENT_ORDERS).emit('kitchen:finished-order', order);
-    io.to(ROOMS.ORDERS).emit('kitchen:finished-order', order);
+  socket.on('kitchen:finish-order', ({order, ticket}) => {
+    io.to(ROOMS.MANAGMENT_ORDERS).emit('kitchen:finished-order', { order, ticket });
+    io.to(ROOMS.ORDERS).emit('kitchen:finished-order', { order, ticket });
   });
 };

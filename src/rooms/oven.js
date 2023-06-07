@@ -13,14 +13,14 @@ import { ROOMS } from '../config/rooms';
 export const ovenRoom = ({ io, socket }) => {
   socket.join(ROOMS.OVEN);
 
-  socket.on('oven:accept-order', order => {
+  socket.on('oven:accept-order', ({order, ticket}) => {
     // Update state of order
-    io.to(ROOMS.MANAGMENT_ORDERS).emit('oven:accepted-order', order);
-    io.to(ROOMS.ORDERS).emit('oven:accepted-order', order);
+    io.to(ROOMS.MANAGMENT_ORDERS).emit('oven:accepted-order', { order, ticket });
+    io.to(ROOMS.ORDERS).emit('oven:accepted-order', { order, ticket });
   });
 
-  socket.on('oven:finish-order', order => {
-    io.to(ROOMS.MANAGMENT_ORDERS).emit('oven:finished-order', order);
-    io.to(ROOMS.ORDERS).emit('oven:finished-order', order);
+  socket.on('oven:finish-order', ({order, ticket}) => {
+    io.to(ROOMS.MANAGMENT_ORDERS).emit('oven:finished-order', { order, ticket });
+    io.to(ROOMS.ORDERS).emit('oven:finished-order', { order, ticket });
   });
 };

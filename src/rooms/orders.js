@@ -9,6 +9,7 @@ export const ordersRoom = ({ io, socket }) => {
   socket.join(ROOMS.ORDERS);
 
   socket.on('create-order', ({ order, tickets }) => {
+    
     const ticketsOven = tickets.filter(ticket => ticket.sections.includes('HORNO'));
     const ticketsKitchen = tickets.filter(ticket => ticket.sections.includes('COCINA'));
 

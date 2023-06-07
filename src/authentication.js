@@ -11,7 +11,7 @@ import { isValidToken } from "./utils/verifyToken";
  */
 export const authenticateSocket = async (socket, data, callback) => {
   const { token } = data;
-  console.log(data);
+  
   if (!token) {
     // Emit error
     console.log(`Socket ${socket.id} unauthorized.`);
