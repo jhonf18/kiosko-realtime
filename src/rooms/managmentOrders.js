@@ -7,15 +7,15 @@ import { ROOMS } from '../config/rooms';
 export const managmentRoom = ({ io, socket }) => {
   socket.join(ROOMS.MANAGMENT_ORDERS);
 
-  socket.on('delete-order', ({ order, ticket }) => {
+  socket.on('delete-order', ({ order }) => {
     // Send order data and get tickets, will send order to managment orders room
     // and send tickets to sections
-    io.to(ROOMS.ORDERS).emit('delete-order', { order, ticket });
-    io.to(ROOMS.KITCHEN).emit('delete-order', { order, ticket });
-    io.to(ROOMS.OVEN).emit('delete-order', { order, ticket });
+    io.to(ROOMS.ORDERS).emit('delete-order', { order });
+    io.to(ROOMS.KITCHEN).emit('delete-order', { order });
+    io.to(ROOMS.OVEN).emit('delete-order', { order });
   });
 
-  socket.on('close-order', ({order, ticket}) => {
-    io.to(ROOMS.ORDERS).emit('closed-order', { order, ticket });
+  socket.on('close-order', ({order }) => {
+    io.to(ROOMS.ORDERS).emit('closed-order', {order } );
   });
 };
